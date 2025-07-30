@@ -1,0 +1,104 @@
+<div class="map-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Carregando mapa...</p>
+    </div>
+  </div>
+
+  <!-- Map Container -->
+  <div #mapContainer
+       class="map-element"
+       [class.map-hidden]="isLoading">
+  </div>
+
+  <!-- Header flutuando por cima do mapa -->
+  <div class="map-header">
+    <div class="header-container">
+      <div class="header-card">
+        <!-- Seta de Voltar -->
+        <button class="back-button" (click)="goBack()">
+          <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <!-- Título -->
+        <div class="header-title">
+          <h1 class="title-text">ASSISTENTE LOCALIZADOR</h1>
+          <p class="subtitle-text">Ouro Branco - MG</p>
+        </div>
+
+        <!-- Botão de limpar rota -->
+        <button *ngIf="selectedRoute"
+                class="clear-button"
+                (click)="clearRoute()">
+          <svg class="clear-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Painel de Rotas -->
+  <div class="routes-panel">
+    <div class="routes-list">
+      <button *ngFor="let route of routes"
+              class="route-item"
+              [class.route-active]="selectedRoute?.id === route.id"
+              (click)="showRoute(route)">
+
+        <div class="route-icon">{{route.icon}}</div>
+
+        <div class="route-info">
+          <h3 class="route-name">{{route.name}}</h3>
+          <div class="route-metrics">
+            <span class="route-distance">📍 {{route.distance}}</span>
+            <span class="route-duration">⏱️ {{route.duration}}</span>
+          </div>
+        </div>
+
+        <div class="route-arrow">
+          <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Info da Rota Selecionada -->
+  <div *ngIf="selectedRoute" class="route-info-panel">
+    <div class="info-content">
+      <div class="info-header">
+        <span class="info-icon">{{selectedRoute.icon}}</span>
+        <div class="info-details">
+          <h3 class="info-title">{{selectedRoute.name}}</h3>
+          <p class="info-metrics">{{selectedRoute.distance}} • {{selectedRoute.duration}}</p>
+          <p class="route-points">🔵 {{selectedRoute.coordinates.length}} pontos na rota</p>
+        </div>
+      </div>
+
+      <div class="info-actions">
+        <button class="action-btn action-start">
+          🚀 INICIAR NAVEGAÇÃO
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de rota detalhada -->
+  <div *ngIf="selectedRoute" class="route-details-indicator">
+    <div class="details-content">
+      <div class="details-header">
+        <span class="details-icon">🛣️</span>
+        <span class="details-text">Rota detalhada ativa</span>
+      </div>
+      <div class="details-info">
+        <span class="details-points">{{selectedRoute.coordinates.length}} pontos seguindo as ruas</span>
+      </div>
+    </div>
+  </div>
+</div>

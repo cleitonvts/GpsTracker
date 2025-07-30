@@ -1,0 +1,10 @@
+<div class="marker-info" (click)="onMarkerClick()">
+  <h4>{{ markerData.title }}</h4>
+  @if (markerData.description) {
+    <p>{{ markerData.description }}</p>
+  }
+  <small>Lat: {{ markerData.lat }}, Lng: {{ markerData.lng }}</small>
+  <button class="delete-btn" (click)="onDeleteMarker()" title="Remover marcador">
+    ×
+  </button>
+</div>

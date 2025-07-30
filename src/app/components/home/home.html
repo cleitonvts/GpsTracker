@@ -1,1 +1,20 @@
-<p>home works!</p>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+<!-- Container principal -->
+<div class="relative min-h-screen flex flex-col items-center justify-center bg-gray-50">
+
+  <!-- Mapa estático de fundo NÍTIDO -->
+  <div class="absolute inset-0 w-full h-full z-10">
+    <div #staticMapContainer class="w-full h-full"></div>
+  </div>
+
+  <!-- Conteúdo principal (botão com transparência) -->
+  <div class="relative z-30 p-6">
+    <button
+      class="px-12 py-5 bg-white/85 backdrop-blur-sm text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl hover:bg-white/90 active:scale-95 active:bg-white/95 transition-all duration-150 ease-in-out font-apple border border-white/30"
+      (click)="onLocalizarClick()">
+      LOCALIZAR
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,46 @@
+/* Fonte customizada */
+.font-apple {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Garantir que o mapa estático ocupe toda a tela */
+.leaflet-container {
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+/* Container do mapa estático */
+#staticMapContainer {
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+/* Remover controles do Leaflet no mapa estático */
+.leaflet-control-container {
+  display: none !important;
+}
+
+/* Remover interações visuais do mapa estático */
+.leaflet-container .leaflet-control-zoom,
+.leaflet-container .leaflet-control-attribution {
+  display: none !important;
+}
+
+/* Cursor normal sobre o mapa estático */
+.leaflet-container {
+  cursor: default !important;
+}
+
+.leaflet-dragging .leaflet-container {
+  cursor: default !important;
+}
+
+/* Melhorar a aparência do botão sobre o mapa */
+button {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}

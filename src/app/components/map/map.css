@@ -1,0 +1,658 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
+/* Container principal */
+.map-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+/* Elemento do mapa */
+.map-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.map-hidden {
+  visibility: hidden;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.loading-content {
+  text-align: center;
+  color: #6b7280;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px auto;
+}
+
+.loading-text {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Header flutuante */
+.map-header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active {
+  transform: scale(0.95);
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  margin: 0 16px;
+}
+
+.title-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #cecece;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.subtitle-text {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+  font-weight: 500;
+}
+
+.clear-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #ef4444;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-button:hover {
+  background: #dc2626;
+}
+
+.clear-button:active {
+  transform: scale(0.95);
+}
+
+.clear-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Painel de rotas */
+.routes-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.panel-header {
+  text-align: center;
+  margin-bottom: 12px;
+  pointer-events: auto;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin: 0;
+  display: inline-block;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.routes-list {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 0;
+  pointer-events: auto;
+}
+
+.routes-list::-webkit-scrollbar {
+  display: none;
+}
+
+.route-item {
+  display: flex;
+  align-items: center;
+  min-width: 240px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.route-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.route-item:active {
+  transform: translateY(0);
+}
+
+.route-active {
+  background: rgba(59, 130, 246, 0.1);
+  border: 2px solid #3b82f6;
+}
+
+.route-icon {
+  font-size: 24px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.route-info {
+  flex: 1;
+  text-align: left;
+}
+
+.route-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #cecece;
+  margin: 0 0 4px 0;
+}
+
+.route-metrics {
+  display: flex;
+  gap: 12px;
+}
+
+.route-distance,
+.route-duration {
+  font-size: 12px;
+  color: #8f98aa;
+  font-weight: 500;
+}
+
+.route-arrow {
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  color: #9ca3af;
+}
+
+/* Info da rota selecionada */
+.route-info-panel {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  right: 20px;
+  z-index: 45;
+  pointer-events: none;
+}
+
+.info-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.info-icon {
+  font-size: 32px;
+  margin-right: 12px;
+}
+
+.info-details {
+  flex: 1;
+}
+
+.info-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.info-metrics {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.route-points {
+  font-size: 12px;
+  color: #3b82f6;
+  margin: 4px 0 0 0;
+  font-weight: 500;
+}
+
+/* Indicador de rota detalhada */
+.route-details-indicator {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  z-index: 35;
+  pointer-events: none;
+}
+
+.details-content {
+  background: rgba(59, 130, 246, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid #1e40af;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.details-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.details-icon {
+  font-size: 16px;
+}
+
+.details-text {
+  font-size: 12px;
+  color: white;
+  font-weight: 600;
+}
+
+.details-info {
+  margin-top: 2px;
+}
+
+.details-points {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.info-actions {
+  text-align: center;
+}
+
+.action-btn {
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.action-btn:hover {
+  background: #16a34a;
+}
+
+.action-btn:active {
+  transform: scale(0.98);
+}
+
+.action-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.calculating-text {
+  font-size: 12px;
+  color: #3b82f6;
+  font-style: italic;
+  margin: 2px 0 0 0;
+}
+
+/* Indicador de roteamento */
+.routing-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  pointer-events: none;
+}
+
+.routing-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+}
+
+.routing-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 12px auto;
+}
+
+.routing-text {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Estilos do Leaflet */
+.leaflet-container {
+  height: 100vh !important;
+  width: 100vw !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Controles do Leaflet ajustados */
+.leaflet-control-container {
+  position: relative;
+  z-index: 10 !important;
+}
+
+.leaflet-top.leaflet-left {
+  top: 200px !important;
+  left: 20px !important;
+  z-index: 10 !important;
+}
+
+.leaflet-top.leaflet-right {
+  top: 200px !important;
+  right: 20px !important;
+  z-index: 10 !important;
+}
+
+.leaflet-bottom.leaflet-left {
+  bottom: 140px !important;
+  left: 20px !important;
+  z-index: 10 !important;
+}
+
+.leaflet-bottom.leaflet-right {
+  bottom: 140px !important;
+  right: 20px !important;
+  z-index: 10 !important;
+}
+
+/* Popups ficam abaixo do header mas acima do mapa */
+.leaflet-popup {
+  z-index: 30 !important;
+}
+
+.leaflet-popup-pane {
+  z-index: 30 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 12px 16px;
+}
+
+.leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Marcadores customizados */
+.home-marker,
+.dest-marker,
+.route-start,
+.route-end {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .map-header {
+    left: 12px;
+    right: 12px;
+    top: 12px;
+  }
+
+  .header-card {
+    padding: 12px 16px;
+  }
+
+  .title-text {
+    font-size: 16px;
+  }
+
+  .routes-panel {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .route-item {
+    min-width: 200px;
+    padding: 10px 12px;
+  }
+
+  .route-name {
+    font-size: 13px;
+  }
+
+  .route-distance,
+  .route-duration {
+    font-size: 11px;
+  }
+
+  .route-info-panel {
+    left: 12px;
+    right: 12px;
+    top: 80px;
+  }
+
+  .leaflet-top.leaflet-left {
+    top: 160px !important;
+    left: 12px !important;
+  }
+
+  .leaflet-bottom.leaflet-left {
+    bottom: 120px !important;
+    left: 12px !important;
+  }
+}
+
+/* Animações suaves */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.route-item {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.route-info-panel {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Melhorias visuais */
+.header-card,
+.route-item,
+.info-content {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Estados de interação melhorados */
+.back-button:focus,
+.clear-button:focus,
+.route-item:focus,
+.action-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Garantir que elementos interativos tenham cursor pointer */
+.back-button,
+.clear-button,
+.route-item,
+.action-btn {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Prevenir seleção de texto em elementos interativos */
+.header-card,
+.route-item,
+.info-content {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* Melhorar a aparência em dispositivos com tela de alta densidade */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .loading-spinner {
+    border-width: 2px;
+  }
+
+  .header-card,
+  .route-item,
+  .info-content {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
